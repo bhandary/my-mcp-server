@@ -4,7 +4,7 @@ from mcp.client.sse import sse_client
 
 async def run_remote_test():
     # Replace with your actual Railway URL
-    url = "https://my-mcp-server-production-1900.up.railway.app/sse"
+    url = "https://your-project-name.up.railway.app/sse"
     
     async with sse_client(url) as (read_stream, write_stream):
         async with ClientSession(read_stream, write_stream) as session:
