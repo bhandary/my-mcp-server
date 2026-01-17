@@ -1,5 +1,5 @@
 httpx>=0.28.1
-mcp>=2.3.2
+fastmcp>=2.14.3
 pydantic>=2.12.3
 python-dotenv>=1.1.1
 pyjwt[crypto]>=2.8.0
