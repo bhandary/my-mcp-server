@@ -1,1 +1,1 @@
-web: uvicorn server:mcp --host 0.0.0.0 --port ${PORT:-8000}
+uvicorn main:mcp.run_asgi --factory --host 0.0.0.0 --port $PORT
