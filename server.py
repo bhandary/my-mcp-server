@@ -27,8 +27,6 @@ token_verifier = create_auth0_verifier()
 # Create an MCP server with OAuth authentication
 mcp = FastMCP(
     name="Weather MCP Server",
-    description="Provides weather information for a given city",
-
     # OAuth Configuration
     token_verifier=token_verifier,
     auth=AuthSettings(
