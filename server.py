@@ -1,21 +1,20 @@
-# server.py
-from fastmcp import FastMCP
-from datetime import datetime
+from mcp.server.fastmcp import FastMCP
 
-# 1. Initialize the MCP server
-mcp = FastMCP("Demo Remote Server")
+mcp = FastMCP(name="Tool Example")
 
-# 2. Define a simple tool
+
 @mcp.tool()
-async def get_current_time(timezone: str = "UTC") -> str:
-    """
-    Returns the current server time.
-    :param timezone: The timezone string (default 'UTC')
-    """
-    now = datetime.now().isoformat()
-    return f"The current time in {timezone} is {now}"
+def sum(a: int, b: int) -> int:
+    """Add two numbers together."""
+    return a + b
 
-# 3. Entry point for running as a remote SSE server
+
+@mcp.tool()
+def get_weather(city: str, unit: str = "celsius") -> str:
+    """Get weather for a city."""
+    # This would normally call a weather API
+    return f"Weather in {city}: 22degrees{unit[0].upper()}"
+
+# Run with streamable HTTP transport
 if __name__ == "__main__":
-    # Using 'sse' transport makes it accessible over HTTP
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http")

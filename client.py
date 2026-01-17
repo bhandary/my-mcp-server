@@ -1,23 +1,24 @@
 import asyncio
+
 from mcp import ClientSession
-from mcp.client.sse import sse_client
+from mcp.client.streamable_http import streamable_http_client
 
-async def run_remote_test():
-    # Replace with your actual Railway URL
-    url = "https://your-project-name.up.railway.app/sse"
-    
-    async with sse_client(url) as (read_stream, write_stream):
+
+async def main():
+    # Connect to a streamable HTTP server
+    async with streamable_http_client("http://localhost:8000/mcp") as (
+        read_stream,
+        write_stream,
+        _,
+    ):
+        # Create a session using the client streams
         async with ClientSession(read_stream, write_stream) as session:
-            # Initialize
+            # Initialize the connection
             await session.initialize()
-            
-            # List tools
+            # List available tools
             tools = await session.list_tools()
-            print(f"Available Tools: {tools}")
+            print(f"Available tools: {[tool.name for tool in tools.tools]}")
 
-            # Call the tool
-            result = await session.call_tool("get_weather", arguments={"city": "San Jose"})
-            print(f"Result: {result.content[0].text}")
 
 if __name__ == "__main__":
-    asyncio.run(run_remote_test())
+    asyncio.run(main())
