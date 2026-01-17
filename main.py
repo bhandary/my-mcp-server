@@ -16,6 +16,9 @@ def get_weather(city: str, unit: str = "celsius") -> str:
     # This would normally call a weather API
     return f"Weather in {city}: 22degrees{unit[0].upper()}"
 
-# Run with streamable HTTP transport
+# Export the ASGI app for uvicorn
+app = mcp.get_asgi_app()
+
+# Run with streamable HTTP transport when executed directly
 if __name__ == "__main__":
     mcp.run(transport="streamable-http")
